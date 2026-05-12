@@ -9,3 +9,5 @@ outputs/
 outputs_verify/
 wrong_words.csv
 TARGET1900.csv.rtf
+config.py
+log.txt
