@@ -5,9 +5,9 @@ from pathlib import Path
 import requests
 
 # ===== 設定 =====
-CHANNEL_ACCESS_TOKEN = "owxfKdMHkmfY2m4ByKtZyCO7hbCHoctYKDgArisBoUyowSbP+K7GlAjkxYEjsux/+fX/+PBYqvd3riVm2ut431zdrVQo9ykc3tKAuJUDbr7BzjbmPSjR0VjooYF9X2gXMTqRDe5h7oepM2dy+i1yKAdB04t89/1O/w1cDnyilFU="
-# USER_ID = "Ua272c36f1f23092073513cfc653cb4e8"  # ゆうたの
-USER_ID = "Ua7f8f3d3663dedf735eaf728dc88d752"  # りょうがの
+CHANNEL_ACCESS_TOKEN = "LINEチャネルアクセストークン"
+# USER_ID = "UserID"  # 
+USER_ID = "UserID"  # 
 BASE_DIR = Path(__file__).resolve().parent
 OUTPUT_DIR = BASE_DIR / "outputs"
 GENERATE_TEST_SCRIPT = BASE_DIR / "generate_test.py"
