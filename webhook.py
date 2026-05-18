@@ -1,3 +1,5 @@
+import traceback
+
 from fastapi import FastAPI, Request
 
 from services.line_service import download_line_image, reply_message
@@ -56,7 +58,8 @@ async def callback(request: Request):
             )
 
         except Exception as e:
-            print(f"[ERROR] {e}")
+            print(f"[ERROR] {type(e).__name__}: {e!r}", flush=True)
+            traceback.print_exc()
 
             reply_message(
                 reply_token=reply_token,

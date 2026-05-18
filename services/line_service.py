@@ -1,14 +1,16 @@
 import os
 import requests
 from pathlib import Path
-from config import LINE_CHANNEL_ACCESS_TOKEN
 
-LINE_TOKEN = os.getenv("LINE_CHANNEL_ACCESS_TOKEN")
+from services.settings import get_required_env
+
+
+LINE_CHANNEL_ACCESS_TOKEN = get_required_env("LINE_CHANNEL_ACCESS_TOKEN")
 
 def push_message(user_id, text):
     url = "https://api.line.me/v2/bot/message/push"
     headers = {
-        "Authorization": f"Bearer {LINE_TOKEN}",
+        "Authorization": f"Bearer {LINE_CHANNEL_ACCESS_TOKEN}",
         "Content-Type": "application/json"
     }
     payload = {
@@ -83,4 +85,3 @@ def download_line_image(
     path.write_bytes(response.content)
 
     return str(path)
-

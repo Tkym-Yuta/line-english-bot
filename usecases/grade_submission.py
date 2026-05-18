@@ -9,7 +9,9 @@ from usecases.format_result import format_grading_result
 
 def grade_submission(image_path: str) -> dict:
     # 1. 画像から test_id をOCR
+    print("[grade_submission] started", flush=True)
     test_id = extract_test_id_from_image(image_path)
+    print(f"[grade_submission] extracted test_id={test_id}", flush=True)
 
     if test_id == "UNKNOWN":
         raise RuntimeError("test_id を読み取れませんでした。")
@@ -44,6 +46,14 @@ def grade_submission(image_path: str) -> dict:
     message = format_grading_result(
         result=result,
         test_metadata=test_data["test_metadata"],
+    )
+
+    print(
+        "[grade_submission] completed: "
+        f"test_id={test_id}, "
+        f"score={result['score']}/{result['total']}, "
+        f"wrong_count={len(result['wrong_numbers'])}",
+        flush=True,
     )
 
     return {

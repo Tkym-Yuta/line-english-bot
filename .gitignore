@@ -1,5 +1,6 @@
 __pycache__/
 *.pyc
+.venv/
 .env
 credentials.json
 *.log
@@ -13,3 +14,11 @@ config.py
 log.txt
 answers/*
 TARGET1900.csv
+
+# local/debug scripts
+main.py
+generate_verify.py
+send_line.py
+usecases/grade_test.py
+usecases/generate_test.py
+usecases/handle_event.py

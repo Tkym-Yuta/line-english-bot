@@ -22,8 +22,10 @@ def grade_from_image(image_path: str, questions: str, correct_answers: str) -> d
         correct_answers=correct_answers,
     )
 
-    print("==== OCR Result ====")
-    print(ocr_text)
+    print(
+        f"[grade_from_ocr] OCR completed: {len(ocr_text)} chars",
+        flush=True,
+    )
 
     prompt = f"""
 あなたは英単語テストの採点AIです。
@@ -64,15 +66,17 @@ def grade_from_image(image_path: str, questions: str, correct_answers: str) -> d
     for attempt in range(MAX_RETRY + 1):
         response = ask_gemini(prompt)
 
-        print(f"===== Gemini Raw Response attempt {attempt + 1} =====")
-        print(response)
+        print(
+            f"[grade_from_ocr] grading attempt {attempt + 1}",
+            flush=True,
+        )
 
         cleaned = clean_json_response(response)
 
         try:
             result = json.loads(cleaned)
         except json.JSONDecodeError as e:
-            print(f"[ERROR] JSON parse failed: {e}")
+            print(f"[ERROR] JSON parse failed: {e}", flush=True)
             continue
 
         if validate_grading_result(result):
@@ -80,11 +84,15 @@ def grade_from_image(image_path: str, questions: str, correct_answers: str) -> d
             result["total"] = TOTAL_QUESTIONS
             result["score"] = TOTAL_QUESTIONS - len(wrong_numbers)
 
-            print("===== Parsed JSON =====")
-            print(result)
+            print(
+                "[grade_from_ocr] grading completed: "
+                f"score={result['score']}/{result['total']}, "
+                f"wrong_count={len(wrong_numbers)}",
+                flush=True,
+            )
 
             return result
 
-        print("[ERROR] Invalid grading result. Retrying...")
+        print("[ERROR] Invalid grading result. Retrying...", flush=True)
 
     raise RuntimeError("Gemini採点JSONの検証に失敗しました。")
